@@ -1,0 +1,121 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dealerships - Contact Us</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container">
+                    <a class="navbar-brand" href="/">Best Cars Dealership</a>
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                    >
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link"
+                                    href="{% url 'djangoapp:index' %}"
+                                    >Home</a
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link"
+                                    href="{% url 'djangoapp:about' %}"
+                                    >About Us</a
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link active"
+                                    href="{% url 'djangoapp:contact' %}"
+                                    >Contact Us</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <section class="contact-section py-5">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <h1 class="mb-4">Contact Us</h1>
+                            <div class="contact-info">
+                                <div class="mb-3">
+                                    <p class="mb-1">Contact Customer Service</p>
+                                    <a href="mailto:support@bestcars.com"
+                                        >support@bestcars.com</a
+                                    >
+                                </div>
+                                <div class="mb-3">
+                                    <p class="mb-1">
+                                        Contact our National Advertising team
+                                    </p>
+                                    <a href="mailto:NationalSales@bestcars.com"
+                                        >NationalSales@bestcars.com</a
+                                    >
+                                </div>
+                                <div class="mb-3">
+                                    <p class="mb-1">
+                                        Contact our Public Relations team
+                                    </p>
+                                    <a href="mailto:PR@bestcars.com"
+                                        >PR@bestcars.com</a
+                                    >
+                                </div>
+                                <div class="mb-3">
+                                    <p class="mb-1">
+                                        Contact the bestcars.com offices
+                                    </p>
+                                    <a href="tel:312-611-1111">312-611-1111</a>
+                                </div>
+                                <div>
+                                    <p class="mb-1">
+                                        Become a bestcars.com car dealer
+                                    </p>
+                                    <a href="https://growwithbestcars.com"
+                                        >Visit growwithbestcars.com</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <img
+                                src="https://5.imimg.com/data5/SELLER/Default/2021/12/NJ/TN/PC/51665645/car-showroom-interior-design.jpg"
+                                alt="Dealership Interior"
+                                class="img-fluid"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bg-light py-3 text-center">
+            <p class="mb-0">
+                &copy; 2024 Best Cars Dealership. All Rights Reserved.
+            </p>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
