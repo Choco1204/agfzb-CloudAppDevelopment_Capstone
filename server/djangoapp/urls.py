@@ -21,6 +21,8 @@ urlpatterns = [
     path("logout/", views.logout_request, name="logout"),
     path(route="", view=views.get_dealerships, name="index"),
     path("protected/", views.protected_view, name="protected"),
+    # path to get list of cars
+    path("cars/", views.get_cars, name="carlist"),
     # path for dealer reviews view
     # path for add a review view
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

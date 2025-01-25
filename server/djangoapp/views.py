@@ -10,10 +10,15 @@ from django.contrib import messages
 from datetime import datetime
 import logging
 import json
+
+from .populate import initiate
 from .forms import CustomUserCreationForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.template.loader import get_template
+from .models import CarMake, CarModel
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -25,6 +30,42 @@ logger = logging.getLogger(__name__)
 @login_required
 def protected_view(request):
     return render(request, "djangoapp/protected.html")
+
+
+#  get the list of cars
+@csrf_exempt
+def get_cars(request):
+    try:
+        # Check if we need to initialize sample data
+        if CarMake.objects.count() == 0:
+            initiate()
+            # Create sample data directly instead of calling undefined initiate()
+            toyota = CarMake.objects.create(
+                name="Toyota",
+                description="Japanese automotive manufacturer",
+                country_of_origin="Japan",
+            )
+
+            CarModel.objects.create(
+                make=toyota, dealer_id=1, name="Camry", type="Sedan", year=2023
+            )
+
+        # Get car models with related makes using correct field name 'make'
+        car_models = CarModel.objects.select_related("make")
+        cars = []
+
+        for car_model in car_models:
+            cars.append(
+                {
+                    "CarModel": car_model.name,
+                    "CarMake": car_model.make.name,  # Correct field name 'make' instead of 'car_make'
+                }
+            )
+
+        return JsonResponse({"CarModels": cars})
+
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
 
 
 # Create an `about` view to render a static about page
