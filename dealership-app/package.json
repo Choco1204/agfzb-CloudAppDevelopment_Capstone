@@ -1,0 +1,17 @@
+{
+  "name": "dealership-app",
+  "version": "1.0.0",
+  "description": "Dealership API with MongoDB",
+  "main": "cloudant/app.js",
+  "scripts": {
+    "start": "node dealership-app/server/cloudant/app.js",
+    "dev": "nodemon dealership-app/server/cloudant/app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
