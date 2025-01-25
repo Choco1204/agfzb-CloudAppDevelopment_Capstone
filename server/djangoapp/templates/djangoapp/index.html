@@ -1,56 +1,10 @@
-{% load static %}
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Best Cars Dealership - About Us</title>
-        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-        />
-    </head>
-
-    <body>
-        <!--Add a nav bar here -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="/djangoapp"
-                    >Best Cars Dealership</a
-                >
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a
-                                class="nav-link active"
-                                href="{% url 'djangoapp:index' %}"
-                                >Home</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                href="{% url 'djangoapp:about' %}"
-                                >About Us</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact">Contact Us</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <!--Add a dealer table here -->
-    </body>
-</html>
+{% extends 'djangoapp/base.html' %} {% load static %} {% block title %}Home -
+Best Cars Dealership{% endblock %} {% block content %}
+<!-- Add a dealer table or other content here -->
+<div class="container my-5">
+    <h1 class="text-center mb-4">Welcome to Best Cars Dealership</h1>
+    <p class="lead text-center">
+        Your premier destination for top-quality domestic and imported vehicles.
+    </p>
+</div>
+{% endblock %}

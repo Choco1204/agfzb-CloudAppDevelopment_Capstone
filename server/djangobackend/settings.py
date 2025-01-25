@@ -37,6 +37,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 ]
 
+# Redirect to home page after login
+LOGIN_REDIRECT_URL = "djangoapp:index"
+
+# Redirect to login page for protected views
+LOGIN_URL = "djangoapp:login"
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -51,7 +57,11 @@ ROOT_URLCONF = "djangobackend.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "frontend/static")],  # Ensure this is correct
+        "DIRS": [
+            os.path.join(BASE_DIR, "frontend/static"),
+            os.path.join(BASE_DIR, "frontend/build"),
+            os.path.join(BASE_DIR, "frontend/build/static"),
+        ],  # Ensure this is correct
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -104,5 +114,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_ROOT = os.path.join(STATIC_ROOT, "media")
 MEDIA_URL = "/media/"
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "frontend/static"),  # Ensure this directory exists
+    os.path.join(BASE_DIR, "frontend/static"),
+    os.path.join(BASE_DIR, "frontend/build"),
+    os.path.join(BASE_DIR, "frontend/build/static"),  # Ensure this directory exists
 ]

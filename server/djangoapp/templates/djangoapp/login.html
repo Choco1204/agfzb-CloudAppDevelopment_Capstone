@@ -1,0 +1,15 @@
+{% extends 'djangoapp/base.html' %} {% load static %} {% block title %}Login -
+Best Cars Dealership{% endblock %} {% block content %}
+<div class="login-container">
+    <div class="login-card">
+        <h2 class="text-center mb-4">Login</h2>
+        <form method="post">
+            {% csrf_token %} {{ form.as_p }}
+            <!-- Let Django render the form -->
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,154 +1,79 @@
-{% load static %}
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Best Cars Dealership - About Us</title>
-        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-        />
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="/">Best Cars Dealership</a>
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                href="{% url 'djangoapp:index' %}"
-                                >Home</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                class="nav-link active"
-                                href="{% url 'djangoapp:about' %}"
-                                >About Us</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                href="{% url 'djangoapp:contact' %}"
-                                >Contact Us</a
-                            >
-                        </li>
-                    </ul>
+{% extends 'djangoapp/base.html' %} {% load static %} {% block title %}About Us
+- Best Cars Dealership{% endblock %} {% block content %}
+<div class="container my-5">
+    <section class="about-section text-center mb-5">
+        <h1 class="display-4 mb-4">Welcome to Best Cars Dealership</h1>
+        <p class="lead">
+            Your premier destination for top-quality domestic and imported
+            vehicles. We pride ourselves on offering exceptional cars at
+            competitive prices.
+        </p>
+    </section>
+
+    <section class="team-section">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdFe2l5yrU1Bd9lao2sMQTAFu0XVbDxk0GVQ&s"
+                        class="card-img-top rounded-circle mx-auto mt-4"
+                        alt="Team Member 1"
+                        style="width: 200px; height: 200px; object-fit: cover"
+                    />
+                    <div class="card-body">
+                        <h3 class="card-title">Emily Rodriguez</h3>
+                        <p class="card-text text-muted">
+                            Chief Executive Officer
+                        </p>
+                        <p>
+                            A visionary leader with over 15 years of automotive
+                            industry experience, driving our dealership's
+                            success and customer satisfaction.
+                        </p>
+                    </div>
                 </div>
             </div>
-        </nav>
-
-        <div class="container my-5">
-            <section class="about-section text-center mb-5">
-                <h1 class="display-4 mb-4">Welcome to Best Cars Dealership</h1>
-                <p class="lead">
-                    Your premier destination for top-quality domestic and
-                    imported vehicles. We pride ourselves on offering
-                    exceptional cars at competitive prices.
-                </p>
-            </section>
-
-            <section class="team-section">
-                <div class="row">
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 text-center">
-                            <img
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdFe2l5yrU1Bd9lao2sMQTAFu0XVbDxk0GVQ&s"
-                                class="card-img-top rounded-circle mx-auto mt-4"
-                                alt="Team Member 1"
-                                style="
-                                    width: 200px;
-                                    height: 200px;
-                                    object-fit: cover;
-                                "
-                            />
-                            <div class="card-body">
-                                <h3 class="card-title">Emily Rodriguez</h3>
-                                <p class="card-text text-muted">
-                                    Chief Executive Officer
-                                </p>
-                                <p>
-                                    A visionary leader with over 15 years of
-                                    automotive industry experience, driving our
-                                    dealership's success and customer
-                                    satisfaction.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 text-center">
-                            <img
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdFe2l5yrU1Bd9lao2sMQTAFu0XVbDxk0GVQ&s"
-                                class="card-img-top rounded-circle mx-auto mt-4"
-                                alt="Team Member 2"
-                                style="
-                                    width: 200px;
-                                    height: 200px;
-                                    object-fit: cover;
-                                "
-                            />
-                            <div class="card-body">
-                                <h3 class="card-title">Michael Chen</h3>
-                                <p class="card-text text-muted">
-                                    Sales Director
-                                </p>
-                                <p>
-                                    Expert negotiator and automotive enthusiast
-                                    committed to finding the perfect vehicle for
-                                    every customer's needs and budget.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 text-center">
-                            <img
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdFe2l5yrU1Bd9lao2sMQTAFu0XVbDxk0GVQ&s"
-                                class="card-img-top rounded-circle mx-auto mt-4"
-                                alt="Team Member 3"
-                                style="
-                                    width: 200px;
-                                    height: 200px;
-                                    object-fit: cover;
-                                "
-                            />
-                            <div class="card-body">
-                                <h3 class="card-title">Sarah Thompson</h3>
-                                <p class="card-text text-muted">
-                                    Customer Service Manager
-                                </p>
-                                <p>
-                                    Dedicated to ensuring an exceptional
-                                    customer experience from first contact
-                                    through after-sales support.
-                                </p>
-                            </div>
-                        </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdFe2l5yrU1Bd9lao2sMQTAFu0XVbDxk0GVQ&s"
+                        class="card-img-top rounded-circle mx-auto mt-4"
+                        alt="Team Member 2"
+                        style="width: 200px; height: 200px; object-fit: cover"
+                    />
+                    <div class="card-body">
+                        <h3 class="card-title">Michael Chen</h3>
+                        <p class="card-text text-muted">Sales Director</p>
+                        <p>
+                            Expert negotiator and automotive enthusiast
+                            committed to finding the perfect vehicle for every
+                            customer's needs and budget.
+                        </p>
                     </div>
                 </div>
-            </section>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdFe2l5yrU1Bd9lao2sMQTAFu0XVbDxk0GVQ&s"
+                        class="card-img-top rounded-circle mx-auto mt-4"
+                        alt="Team Member 3"
+                        style="width: 200px; height: 200px; object-fit: cover"
+                    />
+                    <div class="card-body">
+                        <h3 class="card-title">Sarah Thompson</h3>
+                        <p class="card-text text-muted">
+                            Customer Service Manager
+                        </p>
+                        <p>
+                            Dedicated to ensuring an exceptional customer
+                            experience from first contact through after-sales
+                            support.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <footer class="bg-light py-3 text-center">
-            <p class="mb-0">
-                &copy; 2024 Best Cars Dealership. All Rights Reserved.
-            </p>
-        </footer>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
-</html>
+    </section>
+</div>
+{% endblock %}

@@ -10,12 +10,21 @@ from django.contrib import messages
 from datetime import datetime
 import logging
 import json
+from .forms import CustomUserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from django.template.loader import get_template
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
 
 # Create your views here.
+
+
+@login_required
+def protected_view(request):
+    return render(request, "djangoapp/protected.html")
 
 
 # Create an `about` view to render a static about page
@@ -31,16 +40,48 @@ def contact(request):
 
 
 # Create a `login_request` view to handle sign in request
-# def login_request(request):
-# ...
+def login_request(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"You are now logged in as {username}.")
+                return redirect("djangoapp:protected")
+            else:
+                messages.error(request, "Invalid username or password.")
+        else:
+            messages.error(request, "Invalid username or password.")
+    else:
+        form = AuthenticationForm()
+    return render(request, "djangoapp/login.html", {"form": form})
+
 
 # Create a `logout_request` view to handle sign out request
-# def logout_request(request):
-# ...
+def logout_request(request):
+    logout(request)
+    messages.info(request, "You have successfully logged out.")
+    return redirect("djangoapp:index")
+
 
 # Create a `registration_request` view to handle sign up request
-# def registration_request(request):
-# ...
+def registration_request(request):
+    print(get_template("djangoapp/base.html").origin)  # Debugging: Print template path
+    if request.method == "POST":
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Registration successful.")
+            return redirect("djangoapp:protected")
+        else:
+            messages.error(request, "Invalid information. Please try again.")
+    else:
+        form = CustomUserCreationForm()
+    return render(request, "djangoapp/registration.html", {"form": form})
 
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships

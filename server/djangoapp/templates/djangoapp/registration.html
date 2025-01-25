@@ -1,11 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    {% load static %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-    <body>
-    <!--Add a registration form here -->
-    </body>
-</html>
+{% extends 'djangoapp/base.html' %} {% load static %} {% block title %}Register
+- Best Cars Dealership{% endblock %} {% block content %}
+<div class="container mt-4">
+    <h2>Register</h2>
+    <form method="post">
+        {% csrf_token %} {{ form.as_p }}
+        <!-- Let Django render the form -->
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+/* Global Styles */
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-logo {
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.navbar-menu a {
+    color: #333;
+    text-decoration: none;
+    margin-left: 1rem;
+}
+
+.navbar-menu a.active {
+    color: #007bff;
+}
+
+/* Contact Section Styles */
+.contact-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.contact-info {
+    flex: 1;
+    padding-right: 2rem;
+}
+
+.contact-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.contact-info p {
+    margin-bottom: 0.5rem;
+}
+
+.contact-info a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.contact-image {
+    flex: 1;
+}
+
+.contact-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #6c757d;
+}

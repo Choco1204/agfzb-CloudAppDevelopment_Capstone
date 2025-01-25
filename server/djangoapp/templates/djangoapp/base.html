@@ -1,0 +1,120 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}Best Cars Dealership{% endblock %}</title>
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    </head>
+    <body>
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'djangoapp:index' %}"
+                    >Best Cars Dealership</a
+                >
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a
+                                class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}"
+                                href="{% url 'djangoapp:index' %}"
+                                >Home</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}"
+                                href="{% url 'djangoapp:about' %}"
+                                >About Us</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}"
+                                href="{% url 'djangoapp:contact' %}"
+                                >Contact Us</a
+                            >
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="{% url 'djangoapp:logout' %}"
+                                >Logout</a
+                            >
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a
+                                class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}"
+                                href="{% url 'djangoapp:login' %}"
+                                >Login</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link {% if request.resolver_match.url_name == 'registration' %}active{% endif %}"
+                                href="{% url 'djangoapp:registration' %}"
+                                >Sign Up</a
+                            >
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="container mt-4">
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div
+                    class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show"
+                    role="alert"
+                >
+                    {{ message }}
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Close"
+                    ></button>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %} {% block content %}
+            <!-- Content will be overridden by child templates -->
+            {% endblock %}
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-light py-3 text-center">
+            <p class="mb-0">
+                &copy; 2024 Best Cars Dealership. All Rights Reserved.
+            </p>
+        </footer>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
