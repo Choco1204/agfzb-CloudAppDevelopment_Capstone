@@ -1,18 +1,214 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dealership Review</title>
-    {% load static %}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-</head>
+{% extends 'djangoapp/base.html' %} {% block title %}Dealer Details - Best Cars
+Dealership{% endblock %} {% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-4">Dealer Details</h1>
+    <div class="card shadow mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">{{ dealer.full_name }}</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>City:</strong> {{ dealer.city }}</p>
+            <p><strong>Address:</strong> {{ dealer.address }}</p>
+            <p><strong>Zip Code:</strong> {{ dealer.zip }}</p>
+            <p><strong>State:</strong> {{ dealer.state }}</p>
+        </div>
+    </div>
 
-    <body>
+    <!-- Reviews Section -->
+    <div class="card shadow">
+        <div class="card-header bg-secondary text-white">
+            <h4 class="mb-0">Customer Reviews</h4>
+        </div>
+        <div class="card-body">
+            {% if reviews %} {% for review in reviews %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ review.name }}</h5>
+                    <p class="card-text">{{ review.review }}</p>
+                    <p class="text-muted">
+                        <strong>Rating:</strong> {{ review.rating }} / 5
+                        <br />
+                        <strong>Date:</strong> {{ review.date }}
+                    </p>
+                </div>
+            </div>
+            {% endfor %} {% else %}
+            <div class="alert alert-info mb-0">
+                No reviews available for this dealership.
+            </div>
+            {% endif %}
+        </div>
+    </div>
 
-    <!--Add a nav bar here -->
+    <!-- Add Review Button (Visible Only When Logged In) -->
+    {% if user.is_authenticated %}
+    <div class="text-center mt-4">
+        <button
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#addReviewModal"
+        >
+            Add a Review
+        </button>
+    </div>
+    {% endif %}
+</div>
 
-    <!-- Add reviews as cards -->
+<!-- Add Review Modal (Visible Only When Logged In) -->
+{% if user.is_authenticated %}
+<div
+    class="modal fade"
+    id="addReviewModal"
+    tabindex="-1"
+    aria-labelledby="addReviewModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addReviewModalLabel">
+                    Add a Review
+                </h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <form
+                    id="addReviewForm"
+                    method="post"
+                    action="{% url 'djangoapp:add_review' dealer.id %}"
+                >
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="name"
+                            name="name"
+                            required
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <label for="reviewText" class="form-label"
+                            >Your Review</label
+                        >
+                        <textarea
+                            class="form-control"
+                            id="reviewText"
+                            name="review"
+                            rows="3"
+                            required
+                        ></textarea>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input
+                            type="checkbox"
+                            class="form-check-input"
+                            id="purchaseCheck"
+                            name="purchase"
+                        />
+                        <label class="form-check-label" for="purchaseCheck"
+                            >Did you purchase a car?</label
+                        >
+                    </div>
+                    <div class="mb-3">
+                        <label for="carSelect" class="form-label"
+                            >Select Car</label
+                        >
+                        <select
+                            class="form-select"
+                            id="carSelect"
+                            name="car_model"
+                            required
+                        >
+                            {% for car in cars %}
+                            <option value="{{ car.id }}">
+                                {{ car.name }} ({{ car.year }})
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="purchaseDate" class="form-label"
+                            >Purchase Date</label
+                        >
+                        <input
+                            type="date"
+                            class="form-control"
+                            id="purchaseDate"
+                            name="purchase_date"
+                        />
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        Submit Review
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+<script>
+    document
+        .getElementById("addReviewForm")
+        .addEventListener("submit", function (event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
 
-    </body>
+            fetch(form.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+                },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.status === 200 || data.status === 201) {
+                        alert("Review added successfully!");
+                        location.reload(); // Reload the page to show the new review
+                    } else {
+                        alert(
+                            "Failed to add review: " +
+                                (data.error || "Unknown error"),
+                        );
+                    }
+                })
+                .catch((error) => {
+                    alert("An error occurred: " + error);
+                });
+        });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("/djangoapp/cars/")
+            .then((response) => response.json())
+            .then((data) => {
+                const carSelect = document.getElementById("carSelect");
+                carSelect.innerHTML = ""; // Clear the "Loading cars..." option
 
-</html>
+                if (data.cars && data.cars.length > 0) {
+                    data.cars.forEach((car) => {
+                        const option = document.createElement("option");
+                        option.value = car.id;
+                        option.textContent = car.name;
+                        carSelect.appendChild(option);
+                    });
+                } else {
+                    carSelect.innerHTML = `<option value="">No cars available</option>`;
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching cars:", error);
+                const carSelect = document.getElementById("carSelect");
+                carSelect.innerHTML = `<option value="">Failed to load cars</option>`;
+            });
+    });
+</script>
+{% endblock %}
